@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  social_housing_frontend:
+    build: .
+    container_name: social_housing_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev 
