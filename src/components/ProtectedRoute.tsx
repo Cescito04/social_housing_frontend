@@ -31,6 +31,7 @@ export default function ProtectedRoute({ children, requiredRole }: ProtectedRout
       const payload = token ? parseJwt(token) : null;
       
       if (!payload || payload.role !== requiredRole) {
+        alert("Accès refusé : vous devez être propriétaire pour accéder à cette page.");
         router.replace("/dashboard");
         return;
       }

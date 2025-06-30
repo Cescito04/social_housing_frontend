@@ -2,15 +2,25 @@ import { getAccessToken, getRefreshToken, logout } from "./auth";
 
 const API_URL = "http://localhost:8000/api";
 
-export type Maison = {
+export type Equipement = {
   id: number;
-  adresse: string;
-  latitude: string;
-  longitude: string;
-  description: string;
+  nom: string;
 };
 
-type MaisonsApiResponse = Maison[] | { results: Maison[] };
+export type Chambre = {
+  id: number;
+  maison: number;
+  titre: string;
+  description: string;
+  taille: string;
+  type: string;
+  meublee: boolean;
+  salle_de_bain: boolean;
+  prix: number;
+  disponible: boolean;
+};
+
+type ChambresApiResponse = Chambre[] | { results: Chambre[] };
 
 async function fetchWithAuth<T = unknown>(url: string, options: RequestInit = {}, retry = true): Promise<T> {
   const access = getAccessToken();
@@ -52,47 +62,37 @@ async function fetchWithAuth<T = unknown>(url: string, options: RequestInit = {}
     throw new Error(msg);
   }
   if (res.status === 204) {
-    return undefined as T; // Pas de contenu à parser
+    return undefined as T;
   }
   return res.json();
 }
 
-export async function getMaisons(): Promise<Maison[]> {
-  const res = await fetchWithAuth<MaisonsApiResponse>(`${API_URL}/maisons/`);
+export async function getChambres(maisonId: number): Promise<Chambre[]> {
+  const res = await fetchWithAuth<ChambresApiResponse>(`${API_URL}/chambres/?maison_id=${maisonId}`);
   if (Array.isArray(res)) return res;
-  if (res && Array.isArray((res as { results?: Maison[] }).results)) return (res as { results: Maison[] }).results;
+  if (res && Array.isArray((res as { results?: Chambre[] }).results)) return (res as { results: Chambre[] }).results;
   return [];
 }
 
-export async function getMaison(id: number): Promise<Maison> {
-  return fetchWithAuth<Maison>(`${API_URL}/maisons/${id}/`);
+export async function getChambre(id: number): Promise<Chambre> {
+  return fetchWithAuth<Chambre>(`${API_URL}/chambres/${id}/`);
 }
 
-export async function createMaison(data: {
-  adresse: string;
-  latitude: string;
-  longitude: string;
-  description: string;
-}) {
-  return fetchWithAuth(`${API_URL}/maisons/`, {
+export async function createChambre(data: Omit<Chambre, "id">) {
+  return fetchWithAuth(`${API_URL}/chambres/`, {
     method: "POST",
     body: JSON.stringify(data),
   });
 }
 
-export async function deleteMaison(id: number) {
-  return fetchWithAuth(`${API_URL}/maisons/${id}/`, {
-    method: "DELETE" });
-}
-
-export async function updateMaison(id: number, data: Partial<{
-  adresse: string;
-  latitude: string;
-  longitude: string;
-  description: string;
-}>) {
-  return fetchWithAuth(`${API_URL}/maisons/${id}/`, {
+export async function updateChambre(id: number, data: Partial<Omit<Chambre, "id">>) {
+  return fetchWithAuth(`${API_URL}/chambres/${id}/`, {
     method: "PATCH",
     body: JSON.stringify(data),
   });
+}
+
+export async function deleteChambre(id: number) {
+  return fetchWithAuth(`${API_URL}/chambres/${id}/`, {
+    method: "DELETE" });
 } 

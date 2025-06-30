@@ -1073,6 +1073,35 @@ function MaisonsContent() {
                                                             fileName: "[project]/src/app/maisons/page.tsx",
                                                             lineNumber: 184,
                                                             columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                            onClick: ()=>router.push(`/maisons/${maison.id}/chambres`),
+                                                            className: "p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition",
+                                                            title: "Gérer les chambres",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                                className: "w-4 h-4",
+                                                                fill: "none",
+                                                                stroke: "currentColor",
+                                                                viewBox: "0 0 24 24",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                    strokeLinecap: "round",
+                                                                    strokeLinejoin: "round",
+                                                                    strokeWidth: "2",
+                                                                    d: "M10 6H5a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/maisons/page.tsx",
+                                                                    lineNumber: 207,
+                                                                    columnNumber: 29
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/maisons/page.tsx",
+                                                                lineNumber: 206,
+                                                                columnNumber: 27
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/maisons/page.tsx",
+                                                            lineNumber: 201,
+                                                            columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
@@ -1097,17 +1126,17 @@ function MaisonsContent() {
                                                     className: "h-full"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/maisons/page.tsx",
-                                                    lineNumber: 207,
+                                                    lineNumber: 216,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/maisons/page.tsx",
-                                                lineNumber: 206,
+                                                lineNumber: 215,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/maisons/page.tsx",
-                                            lineNumber: 205,
+                                            lineNumber: 214,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1115,7 +1144,7 @@ function MaisonsContent() {
                                             children: maison.description
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/maisons/page.tsx",
-                                            lineNumber: 216,
+                                            lineNumber: 225,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1130,7 +1159,7 @@ function MaisonsContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/maisons/page.tsx",
-                                                        lineNumber: 221,
+                                                        lineNumber: 230,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1140,18 +1169,18 @@ function MaisonsContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/maisons/page.tsx",
-                                                        lineNumber: 222,
+                                                        lineNumber: 231,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/maisons/page.tsx",
-                                                lineNumber: 220,
+                                                lineNumber: 229,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/maisons/page.tsx",
-                                            lineNumber: 219,
+                                            lineNumber: 228,
                                             columnNumber: 21
                                         }, this)
                                     ]
@@ -1210,7 +1239,7 @@ function MaisonsPage() {
                                     fill: "none"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/maisons/page.tsx",
-                                    lineNumber: 243,
+                                    lineNumber: 252,
                                     columnNumber: 15
                                 }, void 0),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1219,13 +1248,13 @@ function MaisonsPage() {
                                     d: "M4 12a8 8 0 018-8v8z"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/maisons/page.tsx",
-                                    lineNumber: 244,
+                                    lineNumber: 253,
                                     columnNumber: 15
                                 }, void 0)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/maisons/page.tsx",
-                            lineNumber: 242,
+                            lineNumber: 251,
                             columnNumber: 13
                         }, void 0),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1233,33 +1262,33 @@ function MaisonsPage() {
                             children: "Chargement..."
                         }, void 0, false, {
                             fileName: "[project]/src/app/maisons/page.tsx",
-                            lineNumber: 246,
+                            lineNumber: 255,
                             columnNumber: 13
                         }, void 0)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/maisons/page.tsx",
-                    lineNumber: 241,
+                    lineNumber: 250,
                     columnNumber: 11
                 }, void 0)
             }, void 0, false, {
                 fileName: "[project]/src/app/maisons/page.tsx",
-                lineNumber: 240,
+                lineNumber: 249,
                 columnNumber: 9
             }, void 0),
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MaisonsContent, {}, void 0, false, {
                 fileName: "[project]/src/app/maisons/page.tsx",
-                lineNumber: 250,
+                lineNumber: 259,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/maisons/page.tsx",
-            lineNumber: 239,
+            lineNumber: 248,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/maisons/page.tsx",
-        lineNumber: 238,
+        lineNumber: 247,
         columnNumber: 5
     }, this);
 }

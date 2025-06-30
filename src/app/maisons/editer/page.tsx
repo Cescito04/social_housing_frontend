@@ -203,10 +203,10 @@ function EditerMaisonContent() {
                   name="adresse"
                   value={form.adresse}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ${
+                  className={`w-full px-4 py-3 border-2 border-gray-400 bg-white bg-opacity-95 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ${
                     errors && typeof errors !== "string" && errors.adresse
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300"
+                      ? "border-red-400 focus:ring-red-400"
+                      : "border-gray-400"
                   }`}
                   placeholder="123 Rue de la Paix, 75001 Paris"
                 />
@@ -227,10 +227,10 @@ function EditerMaisonContent() {
                   step="any"
                   value={form.latitude}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ${
+                  className={`w-full px-4 py-3 border-2 border-gray-400 bg-white bg-opacity-95 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ${
                     errors && typeof errors !== "string" && errors.latitude
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300"
+                      ? "border-red-400 focus:ring-red-400"
+                      : "border-gray-400"
                   }`}
                   placeholder="48.8566"
                 />
@@ -251,10 +251,10 @@ function EditerMaisonContent() {
                   step="any"
                   value={form.longitude}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ${
+                  className={`w-full px-4 py-3 border-2 border-gray-400 bg-white bg-opacity-95 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition ${
                     errors && typeof errors !== "string" && errors.longitude
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300"
+                      ? "border-red-400 focus:ring-red-400"
+                      : "border-gray-400"
                   }`}
                   placeholder="2.3522"
                 />
@@ -274,10 +274,10 @@ function EditerMaisonContent() {
                   rows={4}
                   value={form.description}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-none ${
+                  className={`w-full px-4 py-3 border-2 border-gray-400 bg-white bg-opacity-95 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-none ${
                     errors && typeof errors !== "string" && errors.description
-                      ? "border-red-300 bg-red-50"
-                      : "border-gray-300"
+                      ? "border-red-400 focus:ring-red-400"
+                      : "border-gray-400"
                   }`}
                   placeholder="Décrivez votre propriété (type de logement, nombre de pièces, équipements, etc.)"
                 />
