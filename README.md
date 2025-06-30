@@ -1,66 +1,262 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏠 Social Housing Management System
 
-## Getting Started
+Un système moderne de gestion de logement social avec interface web interactive et cartographie intégrée.
 
-First, run the development server:
+## 📋 Table des Matières
 
+- [Fonctionnalités](#-fonctionnalités)
+- [Technologies Utilisées](#-technologies-utilisées)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Utilisation](#-utilisation)
+- [Structure du Projet](#-structure-du-projet)
+- [API Endpoints](#-api-endpoints)
+- [Déploiement](#-déploiement)
+- [Contribution](#-contribution)
+- [Licence](#-licence)
+
+## ✨ Fonctionnalités
+
+### 🏘️ Gestion des Propriétés
+- **Ajout/Modification/Suppression** de maisons et appartements
+- **Géolocalisation** avec coordonnées GPS précises
+- **Cartographie interactive** pour chaque propriété
+- **Descriptions détaillées** et informations complètes
+
+### 👥 Gestion des Utilisateurs
+- **Authentification sécurisée** avec JWT
+- **Rôles et permissions** (propriétaires, administrateurs)
+- **Profils utilisateurs** personnalisés
+- **Tableau de bord** personnalisé
+
+### 📅 Gestion des Rendez-vous
+- **Planification** de visites de propriétés
+- **Calendrier interactif**
+- **Notifications** automatiques
+
+### 💰 Gestion Financière
+- **Suivi des paiements** de loyer
+- **Historique des transactions**
+- **Génération de rapports**
+
+### 🔧 Gestion des Problèmes
+- **Signalement** de problèmes techniques
+- **Suivi des réparations**
+- **Communication** propriétaire-locataire
+
+### 📋 Gestion des Contrats
+- **Création et suivi** des contrats de location
+- **Renouvellements** automatiques
+- **Archivage** sécurisé
+
+## 🛠️ Technologies Utilisées
+
+### Frontend
+- **Next.js 15** - Framework React moderne
+- **TypeScript** - Typage statique
+- **Tailwind CSS** - Framework CSS utilitaire
+- **OpenStreetMap** - Cartographie interactive
+- **React Hooks** - Gestion d'état
+
+### Backend
+- **Django** - Framework Python
+- **Django REST Framework** - API REST
+- **PostgreSQL** - Base de données
+- **Docker** - Conteneurisation
+- **JWT** - Authentification
+
+### Outils de Développement
+- **ESLint** - Linting JavaScript/TypeScript
+- **Prettier** - Formatage de code
+- **Git** - Contrôle de version
+
+## 🚀 Installation
+
+### Prérequis
+- Node.js 18+ 
+- Docker et Docker Compose
+- Git
+
+### 1. Cloner le Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Cescito04/social_housing_frontend.git
+cd social_housing_frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Installer les Dépendances
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configuration de l'Environnement
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Éditez le fichier `.env.local` avec vos configurations :
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+NEXT_PUBLIC_MAP_TILE_URL=https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+```
 
-## Learn More
+### 4. Lancer en Mode Développement
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+L'application sera accessible sur `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🐳 Déploiement avec Docker
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Construction et Lancement
+```bash
+# Construire et démarrer les conteneurs
+docker-compose up -d --build
 
-## Deploy on Vercel
+# Vérifier le statut
+docker-compose ps
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Voir les logs
+docker-compose logs -f
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Arrêt des Services
+```bash
+docker-compose down
+```
 
-# social_housing_frontend - Frontend Next.js
+## 📁 Structure du Projet
 
-## Lancer le projet
+```
+social_housing_frontend/
+├── src/
+│   ├── app/                    # Pages Next.js (App Router)
+│   │   ├── dashboard/         # Tableau de bord
+│   │   ├── login/            # Page de connexion
+│   │   ├── register/         # Page d'inscription
+│   │   ├── maisons/          # Gestion des propriétés
+│   │   │   ├── ajouter/      # Ajout de propriété
+│   │   │   └── editer/       # Modification de propriété
+│   │   └── profile/          # Profil utilisateur
+│   ├── components/           # Composants réutilisables
+│   │   ├── MapView.tsx       # Composant carte interactive
+│   │   └── ProtectedRoute.tsx # Protection des routes
+│   ├── hooks/               # Hooks personnalisés
+│   │   └── useAuth.ts       # Hook d'authentification
+│   └── services/            # Services API
+│       ├── api.ts           # Configuration API
+│       ├── auth.ts          # Service d'authentification
+│       ├── maison.ts        # Service des propriétés
+│       └── user.ts          # Service utilisateurs
+├── public/                  # Fichiers statiques
+├── docker-compose.yml       # Configuration Docker
+├── Dockerfile              # Image Docker
+└── package.json            # Dépendances et scripts
+```
 
-1. Placez-vous dans le dossier `frontend` :
+## 🔌 API Endpoints
+
+### Authentification
+- `POST /api/auth/login/` - Connexion utilisateur
+- `POST /api/auth/register/` - Inscription utilisateur
+- `POST /api/auth/logout/` - Déconnexion
+
+### Propriétés
+- `GET /api/maisons/` - Liste des propriétés
+- `POST /api/maisons/` - Créer une propriété
+- `GET /api/maisons/{id}/` - Détails d'une propriété
+- `PUT /api/maisons/{id}/` - Modifier une propriété
+- `DELETE /api/maisons/{id}/` - Supprimer une propriété
+
+### Utilisateurs
+- `GET /api/utilisateurs/profile/` - Profil utilisateur
+- `PUT /api/utilisateurs/profile/` - Modifier le profil
+
+## 🎯 Utilisation
+
+### 1. Connexion
+- Accédez à `http://localhost:3000/login`
+- Entrez vos identifiants
+- Vous serez redirigé vers le tableau de bord
+
+### 2. Gestion des Propriétés
+- **Voir les propriétés** : Accédez à `/maisons`
+- **Ajouter une propriété** : Cliquez sur "Ajouter une maison"
+- **Modifier** : Cliquez sur l'icône d'édition
+- **Supprimer** : Cliquez sur l'icône de suppression
+
+### 3. Cartographie
+- Chaque propriété affiche sa **carte interactive**
+- **Zoom et déplacement** pour explorer la zone
+- **Coordonnées GPS** affichées
+
+### 4. Profil Utilisateur
+- Accédez à `/profile` pour modifier vos informations
+- Changez votre mot de passe
+- Gérez vos préférences
+
+## 🔧 Scripts Disponibles
+
+```bash
+# Développement
+npm run dev          # Serveur de développement
+npm run build        # Construction pour production
+npm run start        # Serveur de production
+npm run lint         # Vérification du code
+npm run type-check   # Vérification TypeScript
+
+# Docker
+docker-compose up -d --build  # Construction et lancement
+docker-compose down           # Arrêt des services
+```
+
+## 🚀 Déploiement en Production
+
+### Variables d'Environnement
+```env
+NEXT_PUBLIC_API_URL=https://votre-api.com/api
+NEXT_PUBLIC_MAP_TILE_URL=https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+NODE_ENV=production
+```
+
+### Construction pour Production
+```bash
+npm run build
+npm run start
+```
+
+### Avec Docker
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+## 🤝 Contribution
+
+1. **Fork** le projet
+2. Créez une **branche** pour votre fonctionnalité
    ```bash
-   cd frontend
+   git checkout -b feature/nouvelle-fonctionnalite
    ```
-2. Démarrez le conteneur Docker :
+3. **Commitez** vos changements
    ```bash
-   docker-compose up --build
+   git commit -m "feat: ajouter nouvelle fonctionnalité"
    ```
-3. L'application sera disponible sur http://localhost:3000
+4. **Poussez** vers la branche
+   ```bash
+   git push origin feature/nouvelle-fonctionnalite
+   ```
+5. Ouvrez une **Pull Request**
 
-## Structure du projet
+## 📝 Licence
 
-- `src/app/register/page.tsx` : Page d'inscription utilisateur
-- `src/services/api.ts` : Fonctions d'appel à l'API backend
-- `src/components/` : Composants réutilisables (à venir)
-- `Dockerfile` et `docker-compose.yml` : Conteneurisation
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-## Configuration
+## 📞 Support
 
-- Le formulaire d'inscription envoie une requête POST à `http://localhost:8000/api/register/` (backend Django attendu sur ce port)
-- Le token JWT est stocké dans le localStorage en cas de succès
+Pour toute question ou problème :
+- Ouvrez une **issue** sur GitHub
+- Contactez l'équipe de développement
 
 ---
 
-Pour toute nouvelle page, créez un fichier dans `src/app/nomdelapage/page.tsx`.
+**Développé avec ❤️ pour améliorer la gestion du logement social**
