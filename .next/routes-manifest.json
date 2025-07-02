@@ -13,7 +13,24 @@
     }
   ],
   "headers": [],
-  "dynamicRoutes": [],
+  "dynamicRoutes": [
+    {
+      "page": "/maisons/[id]/chambres",
+      "regex": "^/maisons/([^/]+?)/chambres(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/maisons/(?<nxtPid>[^/]+?)/chambres(?:/)?$"
+    },
+    {
+      "page": "/maisons/[id]/chambres/ajouter",
+      "regex": "^/maisons/([^/]+?)/chambres/ajouter(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/maisons/(?<nxtPid>[^/]+?)/chambres/ajouter(?:/)?$"
+    }
+  ],
   "staticRoutes": [
     {
       "page": "/",

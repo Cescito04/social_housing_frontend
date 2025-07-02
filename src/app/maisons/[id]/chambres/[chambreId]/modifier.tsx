@@ -1,17 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getChambre, updateChambre, Equipement, Chambre } from "../../../../../../services/chambre";
-import ChambreForm, { ChambreFormValues } from "../../../../../../components/ChambreForm";
-import ProtectedRoute from "../../../../../../components/ProtectedRoute";
-
-// TODO: Remplacer par un vrai fetch des équipements si API disponible
-const equipementsFictifs: Equipement[] = [
-  { id: 1, nom: "Climatisation" },
-  { id: 2, nom: "Salle de bain privée" },
-  { id: 3, nom: "Balcon" },
-  { id: 4, nom: "Wi-Fi" },
-];
+import { getChambre, updateChambre } from "../../../../../services/chambre";
+import ChambreForm, { ChambreFormValues } from "../../../../../components/ChambreForm";
+import ProtectedRoute from "../../../../../components/ProtectedRoute";
 
 export default function ModifierChambrePage() {
   const router = useRouter();
@@ -19,7 +11,7 @@ export default function ModifierChambrePage() {
   const maisonId = Number(params.id);
   const chambreId = Number(params.chambreId);
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<Partial<ChambreFormValues> | string | null>(null);
+  const [errors, setErrors] = useState<string | Partial<Record<keyof ChambreFormValues, string>> | null>(null);
   const [initialValues, setInitialValues] = useState<ChambreFormValues | null>(null);
 
   useEffect(() => {
@@ -43,13 +35,14 @@ export default function ModifierChambrePage() {
     if (chambreId) fetchChambre();
   }, [chambreId]);
 
-  const validateForm = (data: ChambreFormValues): Partial<ChambreFormValues> => {
-    const newErrors: Partial<ChambreFormValues> = {};
+  const validateForm = (data: ChambreFormValues): Partial<Record<keyof ChambreFormValues, string>> => {
+    const newErrors: Partial<Record<keyof ChambreFormValues, string>> = {};
     if (!data.titre.trim()) newErrors.titre = "Le titre est requis";
     if (!data.description.trim()) newErrors.description = "La description est requise";
     if (!data.taille.trim()) newErrors.taille = "La taille est requise";
     if (!data.type.trim()) newErrors.type = "Le type est requis";
-    if (!data.prix || data.prix <= 0) newErrors.prix = "Le prix doit être positif";
+    const prixValue = Number(data.prix);
+    if (!prixValue || prixValue <= 0) newErrors.prix = "Le prix doit être positif";
     return newErrors;
   };
 
@@ -64,6 +57,7 @@ export default function ModifierChambrePage() {
     try {
       await updateChambre(chambreId, {
         ...values,
+        prix: Number(values.prix),
         maison: maisonId,
       });
       router.push(`/maisons/${maisonId}/chambres?success=updated`);

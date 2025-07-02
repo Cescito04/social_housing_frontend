@@ -7,7 +7,7 @@ export type ChambreFormValues = {
   type: string;
   meublee: boolean;
   salle_de_bain: boolean;
-  prix: number;
+  prix: number | string;
   disponible: boolean;
 };
 
@@ -49,7 +49,11 @@ export default function ChambreForm({
     const { name, value, type } = e.target;
     setForm(prev => ({
       ...prev,
-      [name]: type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+      [name]: type === "checkbox"
+        ? (e.target as HTMLInputElement).checked
+        : name === "prix"
+          ? Number(value)
+          : value,
     }));
   };
 

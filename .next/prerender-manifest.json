@@ -1,7 +1,7 @@
 {
   "version": 4,
   "routes": {
-    "/profile": {
+    "/maisons/ajouter": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -14,8 +14,56 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/profile",
-      "dataRoute": "/profile.rsc",
+      "srcRoute": "/maisons/ajouter",
+      "dataRoute": "/maisons/ajouter.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/maisons/editer": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/maisons/editer",
+      "dataRoute": "/maisons/editer.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/dashboard": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/dashboard",
+      "dataRoute": "/dashboard.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -54,78 +102,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/maisons/ajouter": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "Next-Action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/maisons/ajouter",
-      "dataRoute": "/maisons/ajouter.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/dashboard": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "Next-Action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/dashboard",
-      "dataRoute": "/dashboard.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/maisons/editer": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "Next-Action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/maisons/editer",
-      "dataRoute": "/maisons/editer.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/login": {
       "experimentalBypassFor": [
         {
@@ -150,7 +126,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/": {
+    "/maisons": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -163,8 +139,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/",
-      "dataRoute": "/index.rsc",
+      "srcRoute": "/maisons",
+      "dataRoute": "/maisons.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -198,7 +174,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/maisons": {
+    "/profile": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -211,8 +187,32 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/maisons",
-      "dataRoute": "/maisons.rsc",
+      "srcRoute": "/profile",
+      "dataRoute": "/profile.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/",
+      "dataRoute": "/index.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -226,8 +226,8 @@
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "b12472bb5a5f21b296b2715479dbd1b8",
-    "previewModeSigningKey": "f91f266c0da79b18de113ef53e096ef5e7b0ed7cadf9669b835d10eae92b5b94",
-    "previewModeEncryptionKey": "fb124e3bcac441d2e89a5a1acd5545ee1a1de9083147460722252d64d8dd7101"
+    "previewModeId": "2f3d1366c0cfbed6c7cf2765df7fa1c0",
+    "previewModeSigningKey": "b80aa98fe7c7b0749485aa582b84eadbc604d8a0b1f4631119e3a6fbee307e93",
+    "previewModeEncryptionKey": "a0d2bf52e245bcb752d32c77df5f9b768271fb069f32a8ad647c739f41419a85"
   }
 }

@@ -2,11 +2,13 @@
   "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
   "/dashboard/page": "/dashboard",
+  "/maisons/[id]/chambres/ajouter/page": "/maisons/[id]/chambres/ajouter",
+  "/maisons/[id]/chambres/page": "/maisons/[id]/chambres",
   "/login/page": "/login",
-  "/page": "/",
   "/maisons/ajouter/page": "/maisons/ajouter",
-  "/profile/page": "/profile",
   "/maisons/page": "/maisons",
+  "/page": "/",
+  "/profile/page": "/profile",
   "/register/page": "/register",
   "/maisons/editer/page": "/maisons/editer"
 }

@@ -1,17 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { createChambre, Equipement } from "../../../../../services/chambre";
+import { createChambre } from "../../../../../services/chambre";
 import ChambreForm, { ChambreFormValues } from "../../../../../components/ChambreForm";
 import ProtectedRoute from "../../../../../components/ProtectedRoute";
-
-// TODO: Remplacer par un vrai fetch des équipements si API disponible
-const equipementsFictifs: Equipement[] = [
-  { id: 1, nom: "Climatisation" },
-  { id: 2, nom: "Salle de bain privée" },
-  { id: 3, nom: "Balcon" },
-  { id: 4, nom: "Wi-Fi" },
-];
 
 export default function AjouterChambrePage() {
   const router = useRouter();
@@ -26,7 +18,8 @@ export default function AjouterChambrePage() {
     if (!data.description.trim()) newErrors.description = "La description est requise";
     if (!data.taille.trim()) newErrors.taille = "La taille est requise";
     if (!data.type.trim()) newErrors.type = "Le type est requis";
-    if (!data.prix || data.prix <= 0) newErrors.prix = "Le prix doit être positif";
+    const prixValue = Number(data.prix);
+    if (!prixValue || prixValue <= 0) newErrors.prix = "Le prix doit être positif";
     return newErrors;
   };
 
@@ -41,6 +34,7 @@ export default function AjouterChambrePage() {
     try {
       await createChambre({
         ...values,
+        prix: Number(values.prix),
         maison: maisonId,
       });
       router.push(`/maisons/${maisonId}/chambres?success=created`);

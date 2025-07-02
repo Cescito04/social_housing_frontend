@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Chambre } from "../services/chambre";
 
 type ChambreCardProps = {
@@ -8,8 +9,17 @@ type ChambreCardProps = {
 };
 
 export default function ChambreCard({ chambre, onEdit, onDelete }: ChambreCardProps) {
+  const router = useRouter();
   return (
     <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 flex flex-col gap-2">
+      <div className="w-full h-32 bg-gray-100 rounded mb-2 flex items-center justify-center overflow-hidden">
+        <img
+          src={"/room-default.jpg"}
+          alt="Chambre"
+          className="object-cover w-full h-full"
+          style={{ maxHeight: 128 }}
+        />
+      </div>
       <div className="flex justify-between items-center mb-1">
         <h3 className="text-base font-semibold text-gray-900 line-clamp-1">{chambre.titre}</h3>
         <div className="flex gap-1">
@@ -51,6 +61,14 @@ export default function ChambreCard({ chambre, onEdit, onDelete }: ChambreCardPr
       </ul>
       {chambre.description && (
         <div className="text-xs text-gray-500 mt-1 line-clamp-2">{chambre.description}</div>
+      )}
+      {chambre.disponible && (
+        <button
+          onClick={() => router.push(`/maisons/${chambre.maison}/chambres/${chambre.id}/louer`)}
+          className="mt-2 w-full bg-blue-600 text-white py-2 rounded-lg shadow hover:bg-blue-700 transition font-semibold"
+        >
+          Louer cette chambre
+        </button>
       )}
     </div>
   );

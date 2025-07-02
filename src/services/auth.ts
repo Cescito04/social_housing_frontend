@@ -40,6 +40,10 @@ export async function loginUser(email: string, password: string) {
   try {
     const payload = JSON.parse(atob(data.access.split(".")[1]));
     user = payload;
+    // Si le rôle n'est pas dans le JWT, on le prend dans la réponse backend
+    if ((!user.role || user.role === undefined) && data.user && data.user.role) {
+      user.role = data.user.role;
+    }
     if (user && user.username) safeLocalStorage.setItem("username", user.username);
     if (user && user.first_name) safeLocalStorage.setItem("first_name", user.first_name);
   } catch {}

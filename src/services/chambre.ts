@@ -95,4 +95,11 @@ export async function updateChambre(id: number, data: Partial<Omit<Chambre, "id"
 export async function deleteChambre(id: number) {
   return fetchWithAuth(`${API_URL}/chambres/${id}/`, {
     method: "DELETE" });
+}
+
+export async function getAllChambresDisponibles(): Promise<Chambre[]> {
+  const res = await fetchWithAuth<ChambresApiResponse>(`${API_URL}/chambres/?disponible=true`);
+  if (Array.isArray(res)) return res;
+  if (res && Array.isArray((res as { results?: Chambre[] }).results)) return (res as { results: Chambre[] }).results;
+  return [];
 } 

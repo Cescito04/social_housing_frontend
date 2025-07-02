@@ -15,9 +15,15 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
     try {
-      await loginUser(email, password);
+      const user = await loginUser(email, password);
       setLoading(false);
-      router.push("/dashboard");
+      if (user && user.role === "locataire") {
+        router.push("/");
+      } else if (user && user.role === "proprietaire") {
+        router.push("/maisons");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
       if (err instanceof Error) setError(err.message);
       else setError("Erreur de connexion");

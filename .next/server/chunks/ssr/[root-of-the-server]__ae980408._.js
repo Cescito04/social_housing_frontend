@@ -132,12 +132,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$auth$2e$t
 const API_URL = "http://localhost:8000/api";
 async function fetchWithAuth(url, options = {}, retry = true) {
     const access = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getAccessToken"])();
-    if (!access) throw new Error("Not authenticated");
+    if (!access) {
+        console.error("[fetchWithAuth] Aucun token d'authentification trouvé. Redirection vers /login.");
+        throw new Error("Not authenticated");
+    }
     const headers = {
         ...options.headers || {},
         Authorization: `Bearer ${access}`,
         "Content-Type": "application/json"
     };
+    console.log("[fetchWithAuth] Authorization header:", headers.Authorization);
     const res = await fetch(url, {
         ...options,
         headers
@@ -240,6 +244,7 @@ function ProtectedRoute({ children, requiredRole }) {
             const token = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getAccessToken"])();
             const payload = token ? parseJwt(token) : null;
             if (!payload || payload.role !== requiredRole) {
+                alert("Accès refusé : vous devez être propriétaire pour accéder à cette page.");
                 router.replace("/dashboard");
                 return;
             }
@@ -269,7 +274,7 @@ function ProtectedRoute({ children, requiredRole }) {
                                 fill: "none"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ProtectedRoute.tsx",
-                                lineNumber: 47,
+                                lineNumber: 48,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -278,13 +283,13 @@ function ProtectedRoute({ children, requiredRole }) {
                                 d: "M4 12a8 8 0 018-8v8z"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ProtectedRoute.tsx",
-                                lineNumber: 48,
+                                lineNumber: 49,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/ProtectedRoute.tsx",
-                        lineNumber: 46,
+                        lineNumber: 47,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -292,18 +297,18 @@ function ProtectedRoute({ children, requiredRole }) {
                         children: "Vérification des permissions..."
                     }, void 0, false, {
                         fileName: "[project]/src/components/ProtectedRoute.tsx",
-                        lineNumber: 50,
+                        lineNumber: 51,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/ProtectedRoute.tsx",
-                lineNumber: 45,
+                lineNumber: 46,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/ProtectedRoute.tsx",
-            lineNumber: 44,
+            lineNumber: 45,
             columnNumber: 7
         }, this);
     }
@@ -1087,15 +1092,15 @@ function MaisonsContent() {
                                                                     strokeLinecap: "round",
                                                                     strokeLinejoin: "round",
                                                                     strokeWidth: "2",
-                                                                    d: "M10 6H5a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                                                    d: "M3 7v10M21 7v10M3 17h18M7 17V9a2 2 0 012-2h6a2 2 0 012 2v8"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/maisons/page.tsx",
-                                                                    lineNumber: 207,
+                                                                    lineNumber: 208,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/maisons/page.tsx",
-                                                                lineNumber: 206,
+                                                                lineNumber: 207,
                                                                 columnNumber: 27
                                                             }, this)
                                                         }, void 0, false, {
@@ -1126,17 +1131,17 @@ function MaisonsContent() {
                                                     className: "h-full"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/maisons/page.tsx",
-                                                    lineNumber: 216,
+                                                    lineNumber: 217,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/maisons/page.tsx",
-                                                lineNumber: 215,
+                                                lineNumber: 216,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/maisons/page.tsx",
-                                            lineNumber: 214,
+                                            lineNumber: 215,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1144,7 +1149,7 @@ function MaisonsContent() {
                                             children: maison.description
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/maisons/page.tsx",
-                                            lineNumber: 225,
+                                            lineNumber: 226,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1159,7 +1164,7 @@ function MaisonsContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/maisons/page.tsx",
-                                                        lineNumber: 230,
+                                                        lineNumber: 231,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1169,18 +1174,18 @@ function MaisonsContent() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/maisons/page.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 232,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/maisons/page.tsx",
-                                                lineNumber: 229,
+                                                lineNumber: 230,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/maisons/page.tsx",
-                                            lineNumber: 228,
+                                            lineNumber: 229,
                                             columnNumber: 21
                                         }, this)
                                     ]
@@ -1239,7 +1244,7 @@ function MaisonsPage() {
                                     fill: "none"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/maisons/page.tsx",
-                                    lineNumber: 252,
+                                    lineNumber: 253,
                                     columnNumber: 15
                                 }, void 0),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1248,13 +1253,13 @@ function MaisonsPage() {
                                     d: "M4 12a8 8 0 018-8v8z"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/maisons/page.tsx",
-                                    lineNumber: 253,
+                                    lineNumber: 254,
                                     columnNumber: 15
                                 }, void 0)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/maisons/page.tsx",
-                            lineNumber: 251,
+                            lineNumber: 252,
                             columnNumber: 13
                         }, void 0),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1262,33 +1267,33 @@ function MaisonsPage() {
                             children: "Chargement..."
                         }, void 0, false, {
                             fileName: "[project]/src/app/maisons/page.tsx",
-                            lineNumber: 255,
+                            lineNumber: 256,
                             columnNumber: 13
                         }, void 0)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/maisons/page.tsx",
-                    lineNumber: 250,
+                    lineNumber: 251,
                     columnNumber: 11
                 }, void 0)
             }, void 0, false, {
                 fileName: "[project]/src/app/maisons/page.tsx",
-                lineNumber: 249,
+                lineNumber: 250,
                 columnNumber: 9
             }, void 0),
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MaisonsContent, {}, void 0, false, {
                 fileName: "[project]/src/app/maisons/page.tsx",
-                lineNumber: 259,
+                lineNumber: 260,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/maisons/page.tsx",
-            lineNumber: 248,
+            lineNumber: 249,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/maisons/page.tsx",
-        lineNumber: 247,
+        lineNumber: 248,
         columnNumber: 5
     }, this);
 }

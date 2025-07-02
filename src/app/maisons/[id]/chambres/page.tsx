@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { getChambres, deleteChambre, Chambre } from "../../../../services/chambre";
 import ChambreCard from "../../../../components/ChambreCard";
@@ -14,7 +14,7 @@ export default function ChambresListPage() {
   const [error, setError] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<number | null>(null);
 
-  const loadChambres = async () => {
+  const loadChambres = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -25,7 +25,7 @@ export default function ChambresListPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [maisonId]);
 
   useEffect(() => {
     if (!maisonId) return;

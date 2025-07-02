@@ -1,103 +1,82 @@
-import Image from "next/image";
+"use client";
+import React, { useEffect, useState } from "react";
+import { getMaisons, Maison } from "../services/maison";
+import { getChambres, Chambre } from "../services/chambre";
+import ChambreCard from "../components/ChambreCard";
+import ProtectedRoute from "../components/ProtectedRoute";
 
-export default function Home() {
+interface MaisonWithChambres extends Maison {
+  chambres: Chambre[];
+}
+
+export default function HomePage() {
+  const [maisons, setMaisons] = useState<MaisonWithChambres[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchMaisonsEtChambres = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const maisonsData = await getMaisons();
+        const maisonsWithChambres: MaisonWithChambres[] = await Promise.all(
+          maisonsData.map(async (maison) => {
+            const chambres = await getChambres(maison.id);
+            // On ne garde que les chambres disponibles
+            return { ...maison, chambres: chambres.filter(c => c.disponible) };
+          })
+        );
+        setMaisons(maisonsWithChambres.filter(m => m.chambres.length > 0));
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Erreur de chargement des maisons et chambres");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMaisonsEtChambres();
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <ProtectedRoute requiredRole="locataire">
+      <div className="min-h-screen bg-gradient-to-tr from-blue-100 via-white to-blue-200 py-8">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h1 className="text-3xl font-extrabold text-gray-900 mb-8 text-center">Maisons & Chambres disponibles</h1>
+          {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">{error}</div>}
+          {loading ? (
+            <div className="text-center py-12 text-lg">Chargement...</div>
+          ) : maisons.length === 0 ? (
+            <div className="text-center py-12 text-gray-600">Aucune chambre disponible actuellement</div>
+          ) : (
+            <div className="space-y-10">
+              {maisons.map((maison) => (
+                <div key={maison.id} className="bg-white bg-opacity-95 rounded-2xl shadow-xl p-6 border border-gray-100">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
+                    <div>
+                      <h2 className="text-2xl font-bold text-blue-700 mb-1">{maison.adresse}</h2>
+                      <p className="text-gray-600 text-sm mb-1">{maison.description}</p>
+                      <div className="flex gap-4 text-xs text-gray-500">
+                        <span>Lat: {parseFloat(maison.latitude).toFixed(4)}</span>
+                        <span>Lng: {parseFloat(maison.longitude).toFixed(4)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {maison.chambres.map((chambre) => (
+                      <ChambreCard
+                        key={chambre.id}
+                        chambre={chambre}
+                        onEdit={undefined}
+                        onDelete={undefined}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 }

@@ -1,7 +1,1 @@
-{
-  "/_not-found/page": "app/_not-found/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/maisons/[id]/chambres/[chambreId]/modifier/page": "app/maisons/[id]/chambres/[chambreId]/modifier/page.js",
-  "/maisons/[id]/chambres/ajouter/page": "app/maisons/[id]/chambres/ajouter/page.js",
-  "/maisons/[id]/chambres/page": "app/maisons/[id]/chambres/page.js"
-}
+{}
