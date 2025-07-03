@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getMaisons, Maison } from "../services/maison";
-import { getChambres, Chambre } from "../services/chambre";
-import ChambreCard from "../components/ChambreCard";
-import ProtectedRoute from "../components/ProtectedRoute";
+import { getMaisons, Maison } from "../../../services/maison";
+import { getChambres, Chambre } from "../../../services/chambre";
+import ChambreCard from "../../../components/ChambreCard";
+import ProtectedRoute from "../../../components/ProtectedRoute";
 
 interface MaisonWithChambres extends Maison {
   chambres: Chambre[];
@@ -15,26 +15,23 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchMaisonsEtChambres = async () => {
-      setLoading(true);
-      setError(null);
+    async function fetchData() {
       try {
         const maisonsData = await getMaisons();
-        const maisonsWithChambres: MaisonWithChambres[] = await Promise.all(
-          maisonsData.map(async (maison) => {
+        const maisonsWithChambres = await Promise.all(
+          maisonsData.map(async (maison: Maison) => {
             const chambres = await getChambres(maison.id);
-            // On ne garde que les chambres disponibles
-            return { ...maison, chambres: chambres.filter(c => c.disponible) };
+            return { ...maison, chambres };
           })
         );
-        setMaisons(maisonsWithChambres.filter(m => m.chambres.length > 0));
+        setMaisons(maisonsWithChambres);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Erreur de chargement des maisons et chambres");
+        setError("Erreur lors du chargement des maisons et chambres");
       } finally {
         setLoading(false);
       }
-    };
-    fetchMaisonsEtChambres();
+    }
+    fetchData();
   }, []);
 
   return (
@@ -79,4 +76,4 @@ export default function HomePage() {
       </div>
     </ProtectedRoute>
   );
-}
+} 

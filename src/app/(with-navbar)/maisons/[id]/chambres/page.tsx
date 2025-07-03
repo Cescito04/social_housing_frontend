@@ -28,9 +28,8 @@ export default function ChambresListPage() {
   }, [maisonId]);
 
   useEffect(() => {
-    if (!maisonId) return;
     loadChambres();
-  }, [maisonId]);
+  }, [loadChambres]);
 
   const handleDelete = async (id: number) => {
     if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette chambre ?")) return;

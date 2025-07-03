@@ -32,22 +32,37 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-blue-100 via-white to-blue-200 px-2">
-      <form onSubmit={handleSubmit} className="bg-white bg-opacity-95 p-8 rounded-2xl shadow-xl w-full max-w-md space-y-5 border border-gray-100">
-        <div className="flex flex-col items-center mb-2">
-          <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-2">
-            <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm2 6a6 6 0 0 0-12 0"/></svg>
-          </span>
-          <h1 className="text-3xl font-extrabold text-gray-900 text-center tracking-tight">Connexion</h1>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-tr from-blue-200 via-white to-blue-300 px-2">
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-white bg-opacity-95 rounded-3xl shadow-2xl border-2 border-blue-100 overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-400 py-8 px-6 flex flex-col items-center">
+          <div className="w-24 h-24 rounded-full bg-white shadow-lg flex items-center justify-center mb-3 border-4 border-blue-200">
+            <svg className="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm2 6a6 6 0 0 0-12 0"/></svg>
+          </div>
+          <h1 className="text-4xl font-extrabold text-white text-center tracking-tight drop-shadow mb-1">Connexion</h1>
         </div>
-        {error && <div className="text-red-500 text-center font-medium">{error}</div>}
-        <input name="email" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900 placeholder-gray-400 transition-shadow shadow-sm focus:shadow-md" required />
-        <input name="password" type="password" placeholder="Mot de passe" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900 placeholder-gray-400 transition-shadow shadow-sm focus:shadow-md" required />
-        <button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-2 rounded-lg shadow hover:from-blue-600 hover:to-blue-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400" disabled={loading}>
-          {loading ? "Connexion..." : "Se connecter"}
-        </button>
-        <div className="text-center text-sm text-gray-500 mt-2">
-          Pas encore de compte ? <a href="/register" className="text-blue-600 hover:underline font-medium">S&apos;inscrire</a>
+        <div className="p-8 space-y-6">
+          {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center animate-pulse font-semibold">{error}</div>}
+          <div>
+            <label className="block text-sm font-bold text-blue-700 mb-1">Email</label>
+            <input name="email" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-2 border-2 border-blue-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900 placeholder-gray-400 transition-shadow shadow-sm focus:shadow-md" required />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-blue-700 mb-1">Mot de passe</label>
+            <input name="password" type="password" placeholder="Mot de passe" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2 border-2 border-blue-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900 placeholder-gray-400 transition-shadow shadow-sm focus:shadow-md" required />
+          </div>
+          <button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-3 rounded-xl shadow-lg hover:from-blue-600 hover:to-blue-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed" disabled={loading}>
+            {loading ? (
+              <>
+                <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" /></svg>
+                Connexion...
+              </>
+            ) : (
+              <>Se connecter</>
+            )}
+          </button>
+          <div className="text-center text-sm text-gray-500 mt-2">
+            Pas encore de compte ? <a href="/register" className="text-blue-600 hover:underline font-medium">S&apos;inscrire</a>
+          </div>
         </div>
       </form>
     </div>

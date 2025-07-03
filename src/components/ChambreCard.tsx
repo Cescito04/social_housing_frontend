@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Chambre } from "../services/chambre";
+import { getAccessToken } from "../services/auth";
 
 type ChambreCardProps = {
   chambre: Chambre;
@@ -8,8 +9,20 @@ type ChambreCardProps = {
   onDelete?: (id: number) => void;
 };
 
+function getUserRole() {
+  const token = getAccessToken();
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.role || null;
+  } catch {
+    return null;
+  }
+}
+
 export default function ChambreCard({ chambre, onEdit, onDelete }: ChambreCardProps) {
   const router = useRouter();
+  const role = getUserRole();
   return (
     <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 flex flex-col gap-2">
       <div className="w-full h-32 bg-gray-100 rounded mb-2 flex items-center justify-center overflow-hidden">
@@ -49,9 +62,17 @@ export default function ChambreCard({ chambre, onEdit, onDelete }: ChambreCardPr
       </div>
       <div className="flex items-center gap-2 mb-1">
         <span className="text-sm font-medium text-green-700">{chambre.prix} FCFA</span>
-        <span className={`ml-2 text-xs px-2 py-0.5 rounded ${chambre.disponible ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-          {chambre.disponible ? "Disponible" : "Indisponible"}
-        </span>
+        {chambre.disponible ? (
+          <span className="ml-2 text-xs px-2 py-0.5 rounded bg-green-100 text-green-700 font-bold flex items-center gap-1">
+            <svg className="w-3 h-3 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+            Disponible
+          </span>
+        ) : (
+          <span className="ml-2 text-xs px-2 py-0.5 rounded bg-red-200 text-red-800 font-extrabold line-through flex items-center gap-1 animate-pulse">
+            <svg className="w-3 h-3 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            Indisponible
+          </span>
+        )}
       </div>
       <ul className="text-xs text-gray-700 space-y-0.5 mt-1">
         <li><span className="font-medium">Type :</span> <span className="capitalize">{chambre.type}</span></li>
@@ -62,12 +83,13 @@ export default function ChambreCard({ chambre, onEdit, onDelete }: ChambreCardPr
       {chambre.description && (
         <div className="text-xs text-gray-500 mt-1 line-clamp-2">{chambre.description}</div>
       )}
-      {chambre.disponible && (
+      {role === "locataire" && (
         <button
-          onClick={() => router.push(`/maisons/${chambre.maison}/chambres/${chambre.id}/louer`)}
-          className="mt-2 w-full bg-blue-600 text-white py-2 rounded-lg shadow hover:bg-blue-700 transition font-semibold"
+          onClick={() => chambre.disponible && router.push(`/maisons/${chambre.maison}/chambres/${chambre.id}/louer`)}
+          className={`mt-2 w-full py-2 rounded-lg shadow font-semibold transition ${chambre.disponible ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-300 text-gray-500 cursor-not-allowed line-through'}`}
+          disabled={!chambre.disponible}
         >
-          Louer cette chambre
+          {chambre.disponible ? 'Louer cette chambre' : 'Déjà louée - indisponible'}
         </button>
       )}
     </div>

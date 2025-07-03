@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { createContrat } from '../../../../../../services/contrat';
 import ProtectedRoute from '../../../../../../components/ProtectedRoute';
-import { getChambre } from '../../../../../../services/chambre';
+import { getChambre, Chambre } from '../../../../../../services/chambre';
+import { getMaison, Maison } from '../../../../../../services/maison';
 
 const MODE_PAIEMENT_OPTIONS = [
   { value: "cash", label: "Cash" },
@@ -27,12 +28,12 @@ export default function LouerChambrePage() {
   const router = useRouter();
   const params = useParams();
   const chambreId = Number(Array.isArray(params.chambreId) ? params.chambreId[0] : params.chambreId);
-  const [chambre, setChambre] = useState<any>(null);
+  const [chambre, setChambre] = useState<Chambre | null>(null);
   const [chambreLoading, setChambreLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [maison, setMaison] = useState<Maison | null>(null);
 
   // Form state
   const [dateDebut, setDateDebut] = useState('');
@@ -45,10 +46,16 @@ export default function LouerChambrePage() {
     const fetchChambre = async () => {
       setChambreLoading(true);
       try {
-        console.log("chambreId", chambreId);
         const data = await getChambre(chambreId);
         setChambre(data);
-      } catch (err: any) {
+        if (data?.maison) {
+          const maisonId = typeof data.maison === 'object' && data.maison !== null ? data.maison.id : data.maison;
+          if (maisonId) {
+            const maisonData = await getMaison(maisonId);
+            setMaison(maisonData);
+          }
+        }
+      } catch {
         setError("Chambre introuvable ou inaccessible.");
       } finally {
         setChambreLoading(false);
@@ -98,17 +105,17 @@ export default function LouerChambrePage() {
         <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-blue-200">
           <div className="mb-4">
             <span className="block text-gray-600 font-semibold">Adresse de la maison</span>
-            <span className="font-bold text-xl text-blue-900">{chambre?.maison?.adresse || "-"}</span>
+            <span className="font-bold text-xl text-blue-900">{maison?.adresse || "-"}</span>
           </div>
-          {chambre?.maison?.description && (
+          {maison?.description && (
             <div className="mb-4">
               <span className="block text-gray-600 font-semibold">Description de la maison</span>
-              <span className="font-semibold text-lg text-blue-800">{chambre?.maison?.description}</span>
+              <span className="font-semibold text-lg text-blue-800">{maison?.description}</span>
             </div>
           )}
           <div className="mb-4">
             <span className="block text-gray-600 font-semibold">Chambre</span>
-            <span className="font-bold text-xl text-blue-900">{chambre?.nom || chambre?.titre || chambre?.id}</span>
+            <span className="font-bold text-xl text-blue-900">{chambre?.titre || chambre?.id}</span>
           </div>
           <div className="mb-4">
             <span className="block text-gray-600 font-semibold">Prix</span>
@@ -126,10 +133,17 @@ export default function LouerChambrePage() {
           )}
         </div>
         <div className="flex justify-end mt-8">
-          <button className="bg-blue-700 text-white px-8 py-3 rounded-xl font-extrabold text-lg shadow-lg hover:bg-blue-800 transition" onClick={() => setStep(1)}>
-            Continuer
+          <button
+            className={`px-8 py-3 rounded-xl font-extrabold text-lg shadow-lg transition ${chambre?.disponible ? 'bg-blue-700 text-white hover:bg-blue-800' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+            onClick={() => chambre?.disponible && setStep(1)}
+            disabled={!chambre?.disponible}
+          >
+            {chambre?.disponible ? 'Continuer' : 'Déjà louée - indisponible'}
           </button>
         </div>
+        {!chambre?.disponible && (
+          <div className="mt-4 text-center text-red-600 font-bold text-lg">Cette chambre est déjà louée et ne peut plus être réservée.</div>
+        )}
       </div>
     );
   }
@@ -198,17 +212,17 @@ export default function LouerChambrePage() {
         <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-blue-200">
           <div className="mb-4">
             <span className="block text-gray-600 font-semibold">Adresse de la maison</span>
-            <span className="font-bold text-xl text-blue-900">{chambre?.maison?.adresse || "-"}</span>
+            <span className="font-bold text-xl text-blue-900">{maison?.adresse || "-"}</span>
           </div>
-          {chambre?.maison?.description && (
+          {maison?.description && (
             <div className="mb-4">
               <span className="block text-gray-600 font-semibold">Description de la maison</span>
-              <span className="font-semibold text-lg text-blue-800">{chambre?.maison?.description}</span>
+              <span className="font-semibold text-lg text-blue-800">{maison?.description}</span>
             </div>
           )}
           <div className="mb-4">
             <span className="block text-gray-600 font-semibold">Chambre</span>
-            <span className="font-bold text-xl text-blue-900">{chambre?.nom || chambre?.titre || chambre?.id}</span>
+            <span className="font-bold text-xl text-blue-900">{chambre?.titre || chambre?.id}</span>
           </div>
           <div className="mb-4">
             <span className="block text-gray-600 font-semibold">Prix</span>
@@ -254,10 +268,9 @@ export default function LouerChambrePage() {
                   periodicite: periodicite,
                   montant_caution: Number(montantCaution),
                 });
-                setSuccess(true);
                 setStep(3);
-              } catch (err: any) {
-                setError(err?.message || "Erreur lors de la création du contrat.");
+              } catch (err) {
+                setError(err instanceof Error ? err.message : "Erreur lors de la création du contrat.");
               } finally {
                 setLoading(false);
               }
@@ -281,7 +294,7 @@ export default function LouerChambrePage() {
           <div className="mb-6 text-gray-700">Vous pouvez retrouver ce contrat dans votre espace personnel.</div>
           <div className="flex gap-4 justify-center">
             <button className="bg-blue-700 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-800 transition" onClick={() => router.push("/contrats")}>Voir mes contrats</button>
-            <button className="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-bold hover:bg-gray-300 transition" onClick={() => router.push("/")}>Retour à l'accueil</button>
+            <button className="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-bold hover:bg-gray-300 transition" onClick={() => router.push("/")}>Retour à l&apos;accueil</button>
           </div>
         </div>
       </div>

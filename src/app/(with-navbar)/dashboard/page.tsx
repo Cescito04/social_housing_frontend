@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getUserName, isAuthenticated, getAccessToken } from "../../services/auth";
+import { getUserName, isAuthenticated, getAccessToken } from "../../../services/auth";
 
 function parseJwt(token: string) {
   try {

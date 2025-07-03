@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getMaisons, deleteMaison } from "../../services/maison";
-import ProtectedRoute from "../../components/ProtectedRoute";
-import MapView from "../../components/MapView";
+import { getMaisons, deleteMaison } from "../../../services/maison";
+import ProtectedRoute from "../../../components/ProtectedRoute";
+import MapView from "../../../components/MapView";
 
 interface Maison {
   id: number;

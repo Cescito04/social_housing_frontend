@@ -19,26 +19,32 @@ interface ProtectedRouteProps {
 export default function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [role, setRole] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated()) {
       router.replace("/login");
       return;
     }
+    const token = getAccessToken();
+    const payload = token ? parseJwt(token) : null;
+    setRole(payload?.role || null);
+    setLoading(false);
+  }, [router]);
 
-    if (requiredRole) {
-      const token = getAccessToken();
-      const payload = token ? parseJwt(token) : null;
-      
-      if (!payload || payload.role !== requiredRole) {
-        alert("Accès refusé : vous devez être propriétaire pour accéder à cette page.");
+  useEffect(() => {
+    if (loading) return;
+    if (!isAuthenticated()) return;
+    if (requiredRole && role) {
+      if (role !== requiredRole) {
+        alert(`Accès refusé : vous devez être ${requiredRole} pour accéder à cette page.`);
         router.replace("/dashboard");
         return;
       }
     }
-
     setIsAuthorized(true);
-  }, [router, requiredRole]);
+  }, [router, requiredRole, role, loading]);
 
   if (isAuthorized === null) {
     return (

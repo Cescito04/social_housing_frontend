@@ -91,6 +91,10 @@ async function loginUser(email, password) {
     try {
         const payload = JSON.parse(atob(data.access.split(".")[1]));
         user = payload;
+        // Si le rôle n'est pas dans le JWT, on le prend dans la réponse backend
+        if ((!user.role || user.role === undefined) && data.user && data.user.role) {
+            user.role = data.user.role;
+        }
         if (user && user.username) safeLocalStorage.setItem("username", user.username);
         if (user && user.first_name) safeLocalStorage.setItem("first_name", user.first_name);
     } catch  {}
@@ -235,16 +239,26 @@ function parseJwt(token) {
 function ProtectedRoute({ children, requiredRole }) {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const [isAuthorized, setIsAuthorized] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [role, setRole] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["isAuthenticated"])()) {
             router.replace("/login");
             return;
         }
-        if (requiredRole) {
-            const token = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getAccessToken"])();
-            const payload = token ? parseJwt(token) : null;
-            if (!payload || payload.role !== requiredRole) {
-                alert("Accès refusé : vous devez être propriétaire pour accéder à cette page.");
+        const token = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getAccessToken"])();
+        const payload = token ? parseJwt(token) : null;
+        setRole(payload?.role || null);
+        setLoading(false);
+    }, [
+        router
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (loading) return;
+        if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["isAuthenticated"])()) return;
+        if (requiredRole && role) {
+            if (role !== requiredRole) {
+                alert(`Accès refusé : vous devez être ${requiredRole} pour accéder à cette page.`);
                 router.replace("/dashboard");
                 return;
             }
@@ -252,7 +266,9 @@ function ProtectedRoute({ children, requiredRole }) {
         setIsAuthorized(true);
     }, [
         router,
-        requiredRole
+        requiredRole,
+        role,
+        loading
     ]);
     if (isAuthorized === null) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -274,7 +290,7 @@ function ProtectedRoute({ children, requiredRole }) {
                                 fill: "none"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ProtectedRoute.tsx",
-                                lineNumber: 48,
+                                lineNumber: 54,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -283,13 +299,13 @@ function ProtectedRoute({ children, requiredRole }) {
                                 d: "M4 12a8 8 0 018-8v8z"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ProtectedRoute.tsx",
-                                lineNumber: 49,
+                                lineNumber: 55,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/ProtectedRoute.tsx",
-                        lineNumber: 47,
+                        lineNumber: 53,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -297,18 +313,18 @@ function ProtectedRoute({ children, requiredRole }) {
                         children: "Vérification des permissions..."
                     }, void 0, false, {
                         fileName: "[project]/src/components/ProtectedRoute.tsx",
-                        lineNumber: 51,
+                        lineNumber: 57,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/ProtectedRoute.tsx",
-                lineNumber: 46,
+                lineNumber: 52,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/ProtectedRoute.tsx",
-            lineNumber: 45,
+            lineNumber: 51,
             columnNumber: 7
         }, this);
     }
