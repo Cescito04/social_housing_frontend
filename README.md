@@ -1,6 +1,6 @@
 # 🏠 Social Housing Management System
 
-Un système moderne de gestion de logement social avec interface web interactive et cartographie intégrée.
+Un système moderne de gestion de logement social avec interface web interactive, authentification sécurisée et gestion complète des contrats de location.
 
 ## 📋 Table des Matières
 
@@ -17,69 +17,79 @@ Un système moderne de gestion de logement social avec interface web interactive
 
 ## ✨ Fonctionnalités
 
+### 🔐 Authentification & Sécurité
+- **Authentification JWT** sécurisée avec tokens
+- **Rôles utilisateurs** : Propriétaires et Locataires
+- **Pages de connexion/inscription** modernisées avec UI/UX améliorée
+- **Navigation conditionnelle** selon le rôle utilisateur
+- **Protection des routes** avec composants dédiés
+
 ### 🏘️ Gestion des Propriétés
-- **Ajout/Modification/Suppression** de maisons et appartements
+- **Ajout/Modification/Suppression** de maisons et chambres
 - **Géolocalisation** avec coordonnées GPS précises
 - **Cartographie interactive** pour chaque propriété
 - **Descriptions détaillées** et informations complètes
+- **Gestion des chambres** par propriété
 
 ### 👥 Gestion des Utilisateurs
-- **Authentification sécurisée** avec JWT
-- **Rôles et permissions** (propriétaires, administrateurs)
-- **Profils utilisateurs** personnalisés
-- **Tableau de bord** personnalisé
-
-### 📅 Gestion des Rendez-vous
-- **Planification** de visites de propriétés
-- **Calendrier interactif**
-- **Notifications** automatiques
-
-### 💰 Gestion Financière
-- **Suivi des paiements** de loyer
-- **Historique des transactions**
-- **Génération de rapports**
-
-### 🔧 Gestion des Problèmes
-- **Signalement** de problèmes techniques
-- **Suivi des réparations**
-- **Communication** propriétaire-locataire
+- **Profils utilisateurs** personnalisés et modifiables
+- **Interface moderne** avec avatar et informations détaillées
+- **Gestion des rôles** (propriétaires, locataires)
+- **Tableau de bord** personnalisé selon le rôle
 
 ### 📋 Gestion des Contrats
-- **Création et suivi** des contrats de location
-- **Renouvellements** automatiques
-- **Archivage** sécurisé
+- **Création de contrats** avec assistant multi-étapes
+- **Validation en temps réel** des informations
+- **Gestion des paiements** et cautions
+- **Suivi des contrats** pour propriétaires et locataires
+- **Annulation de contrats** (locataires uniquement)
+
+### 🎨 Interface Utilisateur
+- **Design moderne** avec Tailwind CSS
+- **Navigation responsive** avec barre de navigation conditionnelle
+- **Feedback visuel** avec animations et états de chargement
+- **Formulaires intuitifs** avec validation
+- **Cartes interactives** pour les propriétés
+
+### 📱 Expérience Utilisateur
+- **Navigation fluide** sans rechargement de page
+- **États de chargement** avec spinners animés
+- **Messages d'erreur** clairs et informatifs
+- **Interface adaptative** selon le rôle utilisateur
+- **Validation en temps réel** des formulaires
 
 ## 🛠️ Technologies Utilisées
 
 ### Frontend
-- **Next.js 15** - Framework React moderne
-- **TypeScript** - Typage statique
-- **Tailwind CSS** - Framework CSS utilitaire
-- **OpenStreetMap** - Cartographie interactive
-- **React Hooks** - Gestion d'état
+- **Next.js 15** - Framework React moderne avec App Router
+- **TypeScript** - Typage statique pour la robustesse
+- **Tailwind CSS** - Framework CSS utilitaire pour le design
+- **OpenStreetMap** - Cartographie interactive gratuite
+- **React Hooks** - Gestion d'état moderne
+- **ESLint** - Linting et qualité de code
 
-### Backend
-- **Django** - Framework Python
-- **Django REST Framework** - API REST
-- **PostgreSQL** - Base de données
-- **Docker** - Conteneurisation
-- **JWT** - Authentification
+### Backend (API)
+- **Django REST Framework** - API REST robuste
+- **JWT Authentication** - Authentification sécurisée
+- **PostgreSQL** - Base de données relationnelle
+- **Docker** - Conteneurisation et déploiement
 
 ### Outils de Développement
 - **ESLint** - Linting JavaScript/TypeScript
-- **Prettier** - Formatage de code
+- **Prettier** - Formatage automatique de code
 - **Git** - Contrôle de version
+- **Docker Compose** - Orchestration de conteneurs
 
 ## 🚀 Installation
 
 ### Prérequis
-- Node.js 18+ 
-- Docker et Docker Compose
-- Git
+- **Node.js 18+** 
+- **Docker et Docker Compose**
+- **Git**
 
 ### 1. Cloner le Repository
 ```bash
-git clone https://github.com/Cescito04/social_housing_frontend.git
+git clone https://github.com/your-username/social_housing_frontend.git
 cd social_housing_frontend
 ```
 
@@ -131,27 +141,46 @@ docker-compose down
 social_housing_frontend/
 ├── src/
 │   ├── app/                    # Pages Next.js (App Router)
-│   │   ├── dashboard/         # Tableau de bord
-│   │   ├── login/            # Page de connexion
-│   │   ├── register/         # Page d'inscription
-│   │   ├── maisons/          # Gestion des propriétés
-│   │   │   ├── ajouter/      # Ajout de propriété
-│   │   │   └── editer/       # Modification de propriété
-│   │   └── profile/          # Profil utilisateur
-│   ├── components/           # Composants réutilisables
-│   │   ├── MapView.tsx       # Composant carte interactive
-│   │   └── ProtectedRoute.tsx # Protection des routes
-│   ├── hooks/               # Hooks personnalisés
-│   │   └── useAuth.ts       # Hook d'authentification
-│   └── services/            # Services API
-│       ├── api.ts           # Configuration API
-│       ├── auth.ts          # Service d'authentification
-│       ├── maison.ts        # Service des propriétés
-│       └── user.ts          # Service utilisateurs
-├── public/                  # Fichiers statiques
-├── docker-compose.yml       # Configuration Docker
-├── Dockerfile              # Image Docker
-└── package.json            # Dépendances et scripts
+│   │   ├── (with-navbar)/      # Pages avec navigation
+│   │   │   ├── page.tsx        # Page d'accueil (locataires)
+│   │   │   ├── layout.tsx      # Layout avec navbar
+│   │   │   ├── dashboard/      # Tableau de bord
+│   │   │   ├── maisons/        # Gestion des propriétés
+│   │   │   │   ├── ajouter/    # Ajout de propriété
+│   │   │   │   ├── editer/     # Modification de propriété
+│   │   │   │   └── [id]/       # Détails et chambres
+│   │   │   │       └── chambres/
+│   │   │   │           ├── ajouter/
+│   │   │   │           ├── [chambreId]/
+│   │   │   │           │   ├── louer/    # Assistant de location
+│   │   │   │           │   └── modifier/
+│   │   │   │           └── page.tsx
+│   │   │   ├── contrats/       # Gestion des contrats
+│   │   │   └── profile/        # Profil utilisateur
+│   │   ├── login/              # Page de connexion
+│   │   ├── register/           # Page d'inscription
+│   │   └── layout.tsx          # Layout racine
+│   ├── components/             # Composants réutilisables
+│   │   ├── Navbar.tsx          # Barre de navigation
+│   │   ├── BodyWithNavbar.tsx  # Wrapper conditionnel navbar
+│   │   ├── ProtectedRoute.tsx  # Protection des routes
+│   │   ├── ChambreCard.tsx     # Carte de chambre
+│   │   ├── ContratCard.tsx     # Carte de contrat
+│   │   ├── ChambreForm.tsx     # Formulaire de chambre
+│   │   └── MapView.tsx         # Composant carte interactive
+│   ├── hooks/                  # Hooks personnalisés
+│   │   └── useAuth.ts          # Hook d'authentification
+│   └── services/               # Services API
+│       ├── api.ts              # Configuration API
+│       ├── auth.ts             # Service d'authentification
+│       ├── maison.ts           # Service des propriétés
+│       ├── chambre.ts          # Service des chambres
+│       ├── contrat.ts          # Service des contrats
+│       └── user.ts             # Service utilisateurs
+├── public/                     # Fichiers statiques
+├── docker-compose.yml          # Configuration Docker
+├── Dockerfile                  # Image Docker
+└── package.json                # Dépendances et scripts
 ```
 
 ## 🔌 API Endpoints
@@ -168,93 +197,116 @@ social_housing_frontend/
 - `PUT /api/maisons/{id}/` - Modifier une propriété
 - `DELETE /api/maisons/{id}/` - Supprimer une propriété
 
+### Chambres
+- `GET /api/maisons/{id}/chambres/` - Chambres d'une propriété
+- `POST /api/maisons/{id}/chambres/` - Créer une chambre
+- `GET /api/chambres/{id}/` - Détails d'une chambre
+- `PUT /api/chambres/{id}/` - Modifier une chambre
+- `DELETE /api/chambres/{id}/` - Supprimer une chambre
+
+### Contrats
+- `GET /api/contrats/` - Liste des contrats
+- `POST /api/contrats/` - Créer un contrat
+- `GET /api/contrats/{id}/` - Détails d'un contrat
+- `DELETE /api/contrats/{id}/` - Annuler un contrat
+
 ### Utilisateurs
 - `GET /api/utilisateurs/profile/` - Profil utilisateur
 - `PUT /api/utilisateurs/profile/` - Modifier le profil
 
 ## 🎯 Utilisation
 
-### 1. Connexion
-- Accédez à `http://localhost:3000/login`
-- Entrez vos identifiants
-- Vous serez redirigé vers le tableau de bord
+### 1. Connexion et Inscription
+- **Connexion** : Accédez à `http://localhost:3000/login`
+- **Inscription** : Accédez à `http://localhost:3000/register`
+- **Interface moderne** avec validation en temps réel
+- **Redirection automatique** selon le rôle utilisateur
 
-### 2. Gestion des Propriétés
+### 2. Navigation selon le Rôle
+
+#### 👨‍💼 Propriétaires
+- **Mes maisons** : Gestion des propriétés
+- **Contrats** : Suivi des contrats de location
+- **Profil** : Gestion du compte
+
+#### 🏠 Locataires
+- **Accueil** : Voir les chambres disponibles
+- **Contrats** : Mes contrats de location
+- **Profil** : Gestion du compte
+
+### 3. Gestion des Propriétés
 - **Voir les propriétés** : Accédez à `/maisons`
 - **Ajouter une propriété** : Cliquez sur "Ajouter une maison"
-- **Modifier** : Cliquez sur l'icône d'édition
-- **Supprimer** : Cliquez sur l'icône de suppression
+- **Gérer les chambres** : Accédez aux détails d'une maison
+- **Modifier/Supprimer** : Actions disponibles selon les permissions
 
-### 3. Cartographie
-- Chaque propriété affiche sa **carte interactive**
-- **Zoom et déplacement** pour explorer la zone
-- **Coordonnées GPS** affichées
+### 4. Location de Chambres
+- **Parcourir** : Voir les chambres disponibles sur la page d'accueil
+- **Louer** : Assistant multi-étapes pour la création de contrat
+- **Validation** : Vérification des informations en temps réel
+- **Confirmation** : Récapitulatif avant finalisation
 
-### 4. Profil Utilisateur
-- Accédez à `/profile` pour modifier vos informations
-- Changez votre mot de passe
-- Gérez vos préférences
+### 5. Gestion des Contrats
+- **Voir mes contrats** : Accédez à `/contrats`
+- **Détails complets** : Informations sur le locataire/propriétaire
+- **Annulation** : Possibilité d'annuler (locataires uniquement)
+
+### 6. Profil Utilisateur
+- **Accédez à `/profile`** pour modifier vos informations
+- **Interface moderne** avec avatar et sections organisées
+- **Sauvegarde** avec feedback visuel
 
 ## 🔧 Scripts Disponibles
 
 ```bash
 # Développement
-npm run dev          # Serveur de développement
-npm run build        # Construction pour production
-npm run start        # Serveur de production
-npm run lint         # Vérification du code
-npm run type-check   # Vérification TypeScript
+npm run dev          # Lancer le serveur de développement
+npm run build        # Construire pour la production
+npm run start        # Lancer en mode production
+npm run lint         # Vérifier le code avec ESLint
+npm run lint:fix     # Corriger automatiquement les erreurs ESLint
 
 # Docker
-docker-compose up -d --build  # Construction et lancement
-docker-compose down           # Arrêt des services
+docker-compose up    # Lancer avec Docker
+docker-compose down  # Arrêter les conteneurs
 ```
 
-## 🚀 Déploiement en Production
+## 🚀 Fonctionnalités Avancées
 
-### Variables d'Environnement
-```env
-NEXT_PUBLIC_API_URL=https://votre-api.com/api
-NEXT_PUBLIC_MAP_TILE_URL=https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
-NODE_ENV=production
-```
+### Navigation Conditionnelle
+- **Barre de navigation** qui s'adapte selon l'utilisateur
+- **Masquage automatique** sur les pages d'authentification
+- **Mise à jour en temps réel** sans rechargement
 
-### Construction pour Production
-```bash
-npm run build
-npm run start
-```
+### Assistant de Location
+- **Étapes guidées** pour la création de contrat
+- **Validation progressive** des informations
+- **Récapitulatif** avant finalisation
+- **Feedback visuel** à chaque étape
 
-### Avec Docker
-```bash
-docker-compose -f docker-compose.prod.yml up -d
-```
+### Gestion des États
+- **États de chargement** avec spinners animés
+- **Messages d'erreur** contextuels
+- **Succès** avec animations
+- **Validation** en temps réel
 
 ## 🤝 Contribution
 
 1. **Fork** le projet
-2. Créez une **branche** pour votre fonctionnalité
-   ```bash
-   git checkout -b feature/nouvelle-fonctionnalite
-   ```
+2. **Créez** une branche pour votre fonctionnalité
 3. **Commitez** vos changements
-   ```bash
-   git commit -m "feat: ajouter nouvelle fonctionnalité"
-   ```
 4. **Poussez** vers la branche
-   ```bash
-   git push origin feature/nouvelle-fonctionnalite
-   ```
-5. Ouvrez une **Pull Request**
+5. **Ouvrez** une Pull Request
 
-## 📝 Licence
+## 📄 Licence
 
 Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-## 📞 Support
+## 🆘 Support
 
 Pour toute question ou problème :
-- Ouvrez une **issue** sur GitHub
+- Ouvrez une issue sur GitHub
+- Consultez la documentation de l'API
 - Contactez l'équipe de développement
 
 ---
