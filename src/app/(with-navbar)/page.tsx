@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getMaisons, Maison } from "../../../services/maison";
-import { getChambres, Chambre } from "../../../services/chambre";
-import ChambreCard from "../../../components/ChambreCard";
-import ProtectedRoute from "../../../components/ProtectedRoute";
+import { getMaisons, Maison } from "@/services/maison";
+import { getChambres, Chambre } from "@/services/chambre";
+import ChambreCard from "@/components/ChambreCard";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 interface MaisonWithChambres extends Maison {
   chambres: Chambre[];
@@ -25,7 +25,7 @@ export default function HomePage() {
           })
         );
         setMaisons(maisonsWithChambres);
-      } catch (err) {
+      } catch {
         setError("Erreur lors du chargement des maisons et chambres");
       } finally {
         setLoading(false);

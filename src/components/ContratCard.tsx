@@ -1,5 +1,5 @@
 import React from 'react';
-import { Contrat } from '../services/contrat';
+import { Contrat } from '@/services/contrat';
 
 interface ContratCardProps {
   contrat: Contrat;

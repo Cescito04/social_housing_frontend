@@ -1,6 +1,8 @@
 {
+  "/(with-navbar)/contrats/page": "app/(with-navbar)/contrats/page.js",
+  "/(with-navbar)/maisons/[id]/chambres/[chambreId]/medias/page": "app/(with-navbar)/maisons/[id]/chambres/[chambreId]/medias/page.js",
+  "/(with-navbar)/maisons/[id]/chambres/page": "app/(with-navbar)/maisons/[id]/chambres/page.js",
   "/(with-navbar)/maisons/page": "app/(with-navbar)/maisons/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/login/page": "app/login/page.js"
+  "/(with-navbar)/profile/page": "app/(with-navbar)/profile/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
 }

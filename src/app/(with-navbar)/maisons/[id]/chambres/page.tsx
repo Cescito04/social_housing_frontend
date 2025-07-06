@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getChambres, deleteChambre, Chambre } from "../../../../services/chambre";
-import ChambreCard from "../../../../components/ChambreCard";
-import ProtectedRoute from "../../../../components/ProtectedRoute";
+import { getChambres, deleteChambre, Chambre } from "@/services/chambre";
+import ChambreCard from "@/components/ChambreCard";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function ChambresListPage() {
   const router = useRouter();

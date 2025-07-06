@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getUserProfile, updateUserProfile } from "../../../services/user";
-import { isAuthenticated } from "../../../services/auth";
+import { getUserProfile, updateUserProfile } from "@/services/user";
+import { isAuthenticated } from "@/services/auth";
 
 interface UserProfile {
   email: string;
@@ -98,8 +98,8 @@ export default function ProfilePage() {
               <input name="email" value={profile?.email || ""} disabled className="w-full px-4 py-2 border-2 border-blue-100 rounded-lg bg-gray-100 text-gray-500 font-semibold" />
             </div>
             <div>
-              <label className="block text-sm font-bold text-blue-700 mb-1">Nom d'utilisateur</label>
-              <input name="username" value={form.username || ""} onChange={handleChange} className="w-full px-4 py-2 border-2 border-blue-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900 placeholder-gray-400 transition-shadow shadow-sm focus:shadow-md" placeholder="Nom d'utilisateur" />
+              <label className="block text-sm font-bold text-blue-700 mb-1">Nom d&apos;utilisateur</label>
+              <input name="username" value={form.username || ""} onChange={handleChange} className="w-full px-4 py-2 border-2 border-blue-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900 placeholder-gray-400 transition-shadow shadow-sm focus:shadow-md" placeholder="Nom d&apos;utilisateur" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>

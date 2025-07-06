@@ -1,10 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { createContrat } from '../../../../../../services/contrat';
-import ProtectedRoute from '../../../../../../components/ProtectedRoute';
-import { getChambre, Chambre } from '../../../../../../services/chambre';
-import { getMaison, Maison } from '../../../../../../services/maison';
+import { createContrat } from '@/services/contrat';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { getChambre, Chambre } from '@/services/chambre';
+import { getMaison, Maison } from '@/services/maison';
 
 const MODE_PAIEMENT_OPTIONS = [
   { value: "cash", label: "Cash" },
@@ -49,11 +49,8 @@ export default function LouerChambrePage() {
         const data = await getChambre(chambreId);
         setChambre(data);
         if (data?.maison) {
-          const maisonId = typeof data.maison === 'object' && data.maison !== null ? data.maison.id : data.maison;
-          if (maisonId) {
-            const maisonData = await getMaison(maisonId);
-            setMaison(maisonData);
-          }
+          const maisonData = await getMaison(data.maison);
+          setMaison(maisonData);
         }
       } catch {
         setError("Chambre introuvable ou inaccessible.");

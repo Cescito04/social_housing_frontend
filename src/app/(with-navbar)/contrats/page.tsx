@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { getContrats, deleteContrat, Contrat } from '../../../services/contrat';
-import ContratCard from '../../../components/ContratCard';
-import ProtectedRoute from '../../../components/ProtectedRoute';
-import { getAccessToken } from '../../../services/auth';
+import { getContrats, deleteContrat, Contrat } from '@/services/contrat';
+import ContratCard from '@/components/ContratCard';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import { getAccessToken } from '@/services/auth';
 
 function getUserRole() {
   const token = getAccessToken();

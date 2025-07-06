@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createMaison } from "../../../services/maison";
-import ProtectedRoute from "../../../components/ProtectedRoute";
+import { createMaison } from "@/services/maison";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 interface MaisonForm {
   adresse: string;

@@ -6,8 +6,13 @@ const nextConfig: NextConfig = {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       "@/services": path.resolve(__dirname, "src/services"),
+      "@/components": path.resolve(__dirname, "src/components"),
+      "@": path.resolve(__dirname, "src"),
     };
     return config;
+  },
+  images: {
+    domains: ['localhost'],
   },
 };
 

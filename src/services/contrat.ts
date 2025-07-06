@@ -74,9 +74,9 @@ export interface ContratCreate {
 }
 
 export async function getContrats(): Promise<Contrat[]> {
-  const data = await fetchWithAuth(`${API_URL}/contrats/`);
+  const data = await fetchWithAuth<Contrat[] | { results: Contrat[] }>(`${API_URL}/contrats/`);
   if (Array.isArray(data)) return data;
-  if (data && Array.isArray(data.results)) return data.results;
+  if (data && 'results' in data && Array.isArray(data.results)) return data.results;
   return [];
 }
 

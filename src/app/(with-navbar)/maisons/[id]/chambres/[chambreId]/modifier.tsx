@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getChambre, updateChambre } from "../../../../../services/chambre";
-import ChambreForm, { ChambreFormValues } from "../../../../../components/ChambreForm";
-import ProtectedRoute from "../../../../../components/ProtectedRoute";
+import { getChambre, updateChambre } from "@/services/chambre";
+import ChambreForm, { ChambreFormValues } from "@/components/ChambreForm";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function ModifierChambrePage() {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserName, isAuthenticated, logout } from "../services/auth";
+import { getUserName, isAuthenticated, logout } from "@/services/auth";
 import { useRouter } from "next/navigation";
 
 export function useAuth(redirectTo: string = "/login") {
