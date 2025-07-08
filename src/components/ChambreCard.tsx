@@ -96,13 +96,24 @@ export default function ChambreCard({ chambre, onEdit, onDelete }: ChambreCardPr
         <div className="text-xs text-gray-500 mt-1 line-clamp-2">{chambre.description}</div>
       )}
       {role === "locataire" && (
-        <button
-          onClick={() => chambre.disponible && router.push(`/maisons/${chambre.maison}/chambres/${chambre.id}/louer`)}
-          className={`mt-2 w-full py-2 rounded-lg shadow font-semibold transition ${chambre.disponible ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-300 text-gray-500 cursor-not-allowed line-through'}`}
-          disabled={!chambre.disponible}
-        >
-          {chambre.disponible ? 'Louer cette chambre' : 'Déjà louée - indisponible'}
-        </button>
+        <>
+          <button
+            onClick={() => chambre.disponible && router.push(`/maisons/${chambre.maison}/chambres/${chambre.id}/louer`)}
+            className={`mt-2 w-full py-2 rounded-lg shadow font-semibold transition ${chambre.disponible ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-300 text-gray-500 cursor-not-allowed line-through'}`}
+            disabled={!chambre.disponible}
+          >
+            {chambre.disponible ? 'Louer cette chambre' : 'Déjà louée - indisponible'}
+          </button>
+          {chambre.disponible && (
+            <button
+              onClick={() => router.push(`/chambres/${chambre.id}/rendezvous`)}
+              className="mt-2 w-full py-2 rounded-lg shadow font-bold text-white bg-orange-500 hover:bg-orange-600 ring-2 ring-orange-300 transition"
+              style={{ backgroundColor: '#f97316' }}
+            >
+              Prendre rendez-vous
+            </button>
+          )}
+        </>
       )}
     </div>
   );

@@ -50,6 +50,7 @@ export default function Navbar() {
           <>
             <Link href="/" className="text-white font-semibold text-lg px-4 py-2 rounded-lg hover:bg-blue-800 hover:text-blue-100 focus:outline-none focus:ring-2 focus:ring-white transition">Accueil</Link>
             <Link href="/contrats" className="text-white font-semibold text-lg px-4 py-2 rounded-lg hover:bg-blue-800 hover:text-blue-100 focus:outline-none focus:ring-2 focus:ring-white transition">Contrats</Link>
+            <Link href="/rendezvous" className="text-white font-semibold text-lg px-4 py-2 rounded-lg hover:bg-blue-800 hover:text-blue-100 focus:outline-none focus:ring-2 focus:ring-white transition">Rendez-vous</Link>
             <Link href="/profile" className="text-white font-semibold text-lg px-4 py-2 rounded-lg hover:bg-blue-800 hover:text-blue-100 focus:outline-none focus:ring-2 focus:ring-white transition">Profil</Link>
           </>
         ) : null}
@@ -93,6 +94,7 @@ export default function Navbar() {
             <>
               <Link href="/" className="text-white font-semibold text-lg px-4 py-2 rounded-lg hover:bg-blue-800 hover:text-blue-100 focus:outline-none focus:ring-2 focus:ring-white transition w-full text-center" onClick={() => setMenuOpen(false)}>Accueil</Link>
               <Link href="/contrats" className="text-white font-semibold text-lg px-4 py-2 rounded-lg hover:bg-blue-800 hover:text-blue-100 focus:outline-none focus:ring-2 focus:ring-white transition w-full text-center" onClick={() => setMenuOpen(false)}>Contrats</Link>
+              <Link href="/rendezvous" className="text-white font-semibold text-lg px-4 py-2 rounded-lg hover:bg-blue-800 hover:text-blue-100 focus:outline-none focus:ring-2 focus:ring-white transition w-full text-center" onClick={() => setMenuOpen(false)}>Rendez-vous</Link>
               <Link href="/profile" className="text-white font-semibold text-lg px-4 py-2 rounded-lg hover:bg-blue-800 hover:text-blue-100 focus:outline-none focus:ring-2 focus:ring-white transition w-full text-center" onClick={() => setMenuOpen(false)}>Profil</Link>
             </>
           ) : null}

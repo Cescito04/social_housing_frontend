@@ -1,8 +1,4 @@
 {
-  "/(with-navbar)/contrats/page": "app/(with-navbar)/contrats/page.js",
-  "/(with-navbar)/maisons/[id]/chambres/[chambreId]/medias/page": "app/(with-navbar)/maisons/[id]/chambres/[chambreId]/medias/page.js",
-  "/(with-navbar)/maisons/[id]/chambres/page": "app/(with-navbar)/maisons/[id]/chambres/page.js",
-  "/(with-navbar)/maisons/page": "app/(with-navbar)/maisons/page.js",
-  "/(with-navbar)/profile/page": "app/(with-navbar)/profile/page.js",
+  "/(with-navbar)/page": "app/(with-navbar)/page.js",
   "/_not-found/page": "app/_not-found/page.js"
 }
