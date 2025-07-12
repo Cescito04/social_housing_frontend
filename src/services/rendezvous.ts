@@ -54,25 +54,25 @@ async function fetchWithAuth<T = unknown>(url: string, options: RequestInit = {}
 }
 
 export async function getRendezvous(): Promise<RendezVous[]> {
-  const data = await fetchWithAuth<RendezVous[] | { results: RendezVous[] }>(`${API_URL}/rendezvous/`);
+  const data = await fetchWithAuth<RendezVous[] | { results: RendezVous[] }>(`${API_URL}/rendez-vous/`);
   if (Array.isArray(data)) return data;
   if (data && 'results' in data && Array.isArray(data.results)) return data.results;
   return [];
 }
 
 export async function createRendezvous(data: RendezVousCreate): Promise<RendezVous> {
-  return fetchWithAuth(`${API_URL}/rendezvous/`, {
+  return fetchWithAuth(`${API_URL}/rendez-vous/`, {
     method: "POST",
     body: JSON.stringify(data),
   });
 }
 
 export async function deleteRendezvous(id: number): Promise<void> {
-  await fetchWithAuth(`${API_URL}/rendezvous/${id}/`, { method: "DELETE" });
+  await fetchWithAuth(`${API_URL}/rendez-vous/${id}/`, { method: "DELETE" });
 }
 
 export async function updateRendezvous(id: number, data: Partial<RendezVousCreate & { statut: string }>): Promise<RendezVous> {
-  return fetchWithAuth(`${API_URL}/rendezvous/${id}/`, {
+  return fetchWithAuth(`${API_URL}/rendez-vous/${id}/`, {
     method: "PATCH",
     body: JSON.stringify(data),
   });
